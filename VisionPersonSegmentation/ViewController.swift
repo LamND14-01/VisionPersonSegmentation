@@ -7,7 +7,6 @@
 
 import UIKit
 import Vision
-import CoreImage
 import CoreImage.CIFilterBuiltins
 
 class ViewController: UIViewController {
@@ -52,23 +51,22 @@ class ViewController: UIViewController {
             loadingView.stopAnimating()
             return
         }
-        
-        let requestHandlerOptions: [VNImageOption: AnyObject] = [:]
-        // 1.Request
-        let faceRectRequest = VNGeneratePersonSegmentationRequest { (request, error) in
+
+        // 1. Request
+        let request = VNGeneratePersonSegmentationRequest { (request, error) in
+            // 3. Results
             self.personSegmentation(request: request, error: error)
         }
         
-        faceRectRequest.qualityLevel = .accurate
-        faceRectRequest.outputPixelFormat = kCVPixelFormatType_OneComponent8
+        request.qualityLevel = .accurate
+        request.outputPixelFormat = kCVPixelFormatType_OneComponent8
         
-        // 2.Request Handler
-        let imageRequestHandle = VNImageRequestHandler(cgImage: cgImage,
-                                                       options: requestHandlerOptions)
+        // 2. Request Handler
+        let imageRequestHandle = VNImageRequestHandler(cgImage: cgImage, options: [:])
         
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try imageRequestHandle.perform([faceRectRequest])
+                try imageRequestHandle.perform([request])
             } catch let error {
                 self.loadingView.stopAnimating()
                 print(error)
