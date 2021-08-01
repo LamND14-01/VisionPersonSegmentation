@@ -11,7 +11,7 @@ Trong sample này chúng ta sẽ cùng tìm hiểu Person Segmentation API, giú
 > **Notes**:
 *Sample yêu cầu chạy **Physical device** với ios 15+ hoặc chạy **Simulator** ios 15+ trên macOS chip Intel*
 
-## Vision Framework Usage Patterns
+## Cách tạo một Vision requests
 
 Muốn sử dụng bất kỳ thuật toán nào của Vision, bạn sẽ cần ba bước:
 
@@ -63,7 +63,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 }
 ```
 
-## Hanlde Results
+## Xử lý Results
 
 ![alt text](./assets/blend.png)
 
